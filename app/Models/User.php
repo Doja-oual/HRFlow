@@ -21,9 +21,22 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'name', 
+        'email', 
+        'password', 
+        'role', 
+        'employee_id', 
+        'position', 
+        'department', 
+        'hire_date', 
+        'status', 
+        'phone', 
+        'address', 
+        'date_of_birth', 
+        'gender', 
+        'contract_type', 
+        'profile_picture',
+
     ];
 
     /**
@@ -47,5 +60,10 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function entreprise()
+    {
+        return $this->belongsTo(entreprise::class);
     }
 }
