@@ -18,13 +18,10 @@ class ContractComponent extends Component
     public $contractTypes, $searchTerm = '';
 
     protected $rules = [
-        'user_id' => 'required|exists:users,id',
-        'contract_type_id' => 'required|exists:contract_types,id',
-
+        'contract_type_id' => 'required',
         'start_date' => 'required|date',
         'end_date' => 'nullable|date|after_or_equal:start_date',
-        'status' => 'required|in:active,expired,terminated,pending',
-        'document_path' => 'nullable|string|max:255',
+        'status' => 'required',
     ];
     
 
@@ -90,14 +87,19 @@ class ContractComponent extends Component
 
     public function store()
     {
-        
+        // dd($this->contract_type_id); // Vérifie la valeur avant l'insertion
+    
         // $this->validate();
-
+    
+        if (!$this->user_id) {
+            session()->flash('error', 'Veuillez sélectionner un utilisateur.');
+            return;
+        }
         DB::transaction(function () {
-            $contract = Contract::updateOrCreate(
+            Contract::updateOrCreate(
                 ['id' => $this->contract_id],
                 [
-                    'user_id' => $this->user_id,
+                    'user_id' => $this->user_id, // Vérifier que cette ligne est bien présente
                     'contract_type_id' => $this->contract_type_id,
                     'start_date' => $this->start_date,
                     'end_date' => $this->end_date,
@@ -106,12 +108,12 @@ class ContractComponent extends Component
                 ]
             );
         });
-
+    
         session()->flash('message', 'Contrat enregistré avec succès !');
         $this->closeModal();
         $this->resetFields();
     }
-
+    
     public function edit($contractId)
     {
         $contract = Contract::findOrFail($contractId);

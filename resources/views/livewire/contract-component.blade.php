@@ -52,15 +52,16 @@
                 <div class="mb-4">
                     <label class="block">Employé :</label>
                     <select wire:model="user_id" class="w-full p-2 border rounded">
-                        <option value="">Sélectionner un employé</option>
-                        @foreach($users as $user)
-                            <option value="{{ $user->id }}">{{ $user->name }}</option>
-                        @endforeach
-                    </select>
+    <option value="">Sélectionner un employé</option>
+    @foreach($users as $user)
+        <option value="{{ $user->id }}">{{ $user->name }}</option>
+    @endforeach
+</select>
+
                 </div>
                 <div class="mb-4">
                     <label class="block">Type de contrat :</label>
-                    <select wire:model="contract_type_id" class="w-full p-2 border rounded">
+                    <select wire:model="contract_type_id" name="contract_type_id"  class="w-full p-2 border rounded">
                         <option value="">Sélectionner un type</option>
                         @foreach($contractTypes as $type)
                             <option value="{{ $type->id }}">{{ $type->name }}</option>
@@ -73,12 +74,12 @@
                 </div>
                 
                 <div class="mb-4">
-                    <label class="block">Date de début :</label>
-                    <input type="date" wire:model="start_date" class="w-full p-2 border rounded">
+                    <label class="block" >Date de début :</label>
+                    <input type="date" name="start_date" wire:model="start_date" class="w-full p-2 border rounded">
                 </div>
                 <div class="mb-4">
                     <label class="block">Date de fin :</label>
-                    <input type="date" wire:model="end_date" class="w-full p-2 border rounded">
+                    <input type="date" name="end_date" wire:model="end_date" class="w-full p-2 border rounded">
                 </div>
                 <div class="mb-4">
                     <label class="block">Salaire :</label>
@@ -86,7 +87,7 @@
                 </div>
                 <div class="mb-4">
                     <label class="block">Statut :</label>
-                    <select wire:model="status" class="w-full p-2 border rounded">
+                    <select wire:model="status" name="status" class="w-full p-2 border rounded">
                         <option value="Active">Active</option>
                         <option value="Terminé">Terminé</option>
                         <option value="En attente">En attente</option>
