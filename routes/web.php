@@ -3,8 +3,11 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\CreateUser;
-use App\Livewire\CreateDepartment;
-use App\Livewire\DepartmentList;
+use App\Livewire\ContractComponent;
+use App\Livewire\Departments;
+
+
+// Route::middleware('role:admin')
 
 
 
@@ -15,6 +18,11 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/departments', Departments::class)->name('departments');
+Route::get('/contracts', ContractComponent::class)->name('contracts');
+
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

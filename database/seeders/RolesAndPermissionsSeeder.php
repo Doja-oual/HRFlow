@@ -16,7 +16,7 @@ class RolesAndPermissionsSeeder extends Seeder
     public function run(): void
     {
         $admin = Role::create(['name' => 'admin']);
-        $manager=Role::create(['name'=>'manger']);
+        $manager=Role::create(['name'=>'manager']);
         $RH=Role::create(['name'=>'RH']);
         $employe=Role::create(['name'=>'employe']);
 
@@ -24,7 +24,9 @@ class RolesAndPermissionsSeeder extends Seeder
             'view employees',
             'edit employees',
             'delete employees',
-            'manage payroll'
+            'manage payroll',
+            'approve leaves',
+            'generate reports'
         ];
 
         foreach($permissions as $permission){
@@ -32,6 +34,10 @@ class RolesAndPermissionsSeeder extends Seeder
         }
         $admin->givePermissionTo(Permission::all());
         $manager->givePermissionTo('view employees','delete employees');
+        $RH->givePermissionTo('view employees','delete employees');
+        $employe->givePermissionTo('view employees',);
+
+
         
 
     }
