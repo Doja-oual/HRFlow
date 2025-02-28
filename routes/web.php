@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Livewire\CreateUser;
 use App\Livewire\ContractComponent;
 use App\Livewire\Departments;
+use App\Livewire\FormationComponent;
 
 
 // Route::middleware('role:admin')
@@ -20,6 +21,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/departments', Departments::class)->name('departments');
 Route::get('/contracts', ContractComponent::class)->name('contracts');
+Route::get('/formation', FormationComponent::class)->name('trainings');
+
 
 
 
