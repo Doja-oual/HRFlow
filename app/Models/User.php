@@ -57,4 +57,8 @@ class User extends Authenticatable
 // {
 //     return $this->hasMany(Formation::class, 'employee_id');
 // }
+
+public function salaryPromotions(){
+    return $this->hasMany(SalaryPromotion::class);
+}
 }

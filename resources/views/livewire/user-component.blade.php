@@ -17,7 +17,7 @@
                 <tr class="bg-gray-200">
                     <th class="p-2 border">Nom</th>
                     <th class="p-2 border">Email</th>
-                    <th class="p-2 border">Rôle</th>
+                    <th class="p-2 border">Role</th>
                     <th class="p-2 border">Actions</th>
                 </tr>
             </thead>
