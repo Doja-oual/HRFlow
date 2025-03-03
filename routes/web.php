@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Livewire\CreateUser;
+use App\Livewire\UserComponent;
 use App\Livewire\ContractComponent;
 use App\Livewire\Departments;
 use App\Livewire\FormationComponent;
@@ -35,5 +35,5 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/user/create',CreateUser::class)->name('user');
+Route::get('/user',UserComponent::class)->name('user');
 // Route::get('/user/create',CreateDepartment::class);
