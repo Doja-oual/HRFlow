@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\User;
 
 class Formation extends Model
 {
+    use HasFactory;
     protected $fillable = [
-        'employee_id',
         'title',
         'description',
         'institution',
@@ -17,7 +20,7 @@ class Formation extends Model
         'certificate',
     ];
 
-    public function employee()
+    public function employee(): BelongsTo
     {
         return $this->belongsTo(User::class, 'employee_id');
     }

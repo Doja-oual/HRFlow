@@ -53,8 +53,8 @@ class User extends Authenticatable
     {
         return $this->belongsTo(entreprise::class);
     }
-    public function Formations()
-{
-    return $this->hasMany(Formations::class, 'employee_id');
-}
+//     public function Formations()
+// {
+//     return $this->hasMany(Formation::class, 'employee_id');
+// }
 }
