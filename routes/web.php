@@ -6,11 +6,15 @@ use App\Livewire\UserComponent;
 use App\Livewire\ContractComponent;
 use App\Livewire\Departments;
 use App\Livewire\FormationComponent;
-
+use App\Livewire\CareerHistoryComponent;
 
 // Route::middleware('role:admin')
 
 
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/career-histories',CareerHistoryComponent ::class)->name('career-histories.index');
+});
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,7 +22,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    })->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/departments', Departments::class)->name('departments');
 Route::get('/contracts', ContractComponent::class)->name('contracts');
 Route::get('/formation', FormationComponent::class)->name('trainings');

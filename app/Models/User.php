@@ -61,4 +61,8 @@ class User extends Authenticatable
 public function salaryPromotions(){
     return $this->hasMany(SalaryPromotion::class);
 }
+public function careerHistories()
+{
+    return $this->hasMany(CareerHistory::class);
+}
 }

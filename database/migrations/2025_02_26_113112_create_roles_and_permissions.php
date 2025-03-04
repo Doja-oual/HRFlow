@@ -17,7 +17,7 @@ return new class extends Migration
     {
            Role::create(['name' => 'RH']);
            Role::create(['name' => 'manager']);
-           Role::create(['name' => 'employe']);
+           Role::create(['name' => 'employee']);
    
            Permission::create(['name' => 'view employees']);
            Permission::create(['name' => 'edit employees']);
