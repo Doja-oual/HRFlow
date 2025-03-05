@@ -6,18 +6,20 @@ use App\Models\User;
 use App\Models\CareerHistory; // Ensure you import CareerHistory model
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Models\Department;
 
 class CareerHistoryComponent extends Component
 {
     use WithPagination;
 
-    public $user_id, $position, $department, $start_date, $end_date, $description;
+    public $user_id, $position, $departments, $start_date, $end_date, $description;
     public $editId = null;
     public $employees;
 
   public function mount()
 {
     $this->employees = User::where('role', '=', 'employee')->get();
+    $this->departments = Department::all();
     
     
     }
@@ -26,7 +28,7 @@ class CareerHistoryComponent extends Component
     {
         $this->user_id = '';
         $this->position = '';
-        $this->department = '';
+        $this->departments = '';
         $this->start_date = '';
         $this->end_date = '';
         $this->description = '';
@@ -62,7 +64,7 @@ class CareerHistoryComponent extends Component
         $this->editId = $id;
         $this->user_id = $history->user_id;
         $this->position = $history->position;
-        $this->department = $history->department;
+        $this->departments = $history->departments;
         $this->start_date = $history->start_date;
         $this->end_date = $history->end_date;
         $this->description = $history->description;
@@ -81,7 +83,7 @@ class CareerHistoryComponent extends Component
         CareerHistory::find($this->editId)->update([
             'user_id' => $this->user_id,
             'position' => $this->position,
-            'department' => $this->department,
+            'department' => $this->departments,
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,
             'description' => $this->description,

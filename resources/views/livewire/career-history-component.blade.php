@@ -7,10 +7,9 @@
 
     <form wire:submit.prevent="{{ $editId ? 'update' : 'store' }}" class="bg-white shadow-md rounded p-6 mb-6">
         <div class="mb-4">
-       
-            <label for="user_id" class="block text-sm font-semibold mb-2">Selectionnez un employe</label>
+            <label for="user_id" class="block text-sm font-semibold mb-2">Sélectionnez un employé</label>
             <select wire:model="user_id" id="user_id" class="w-full border border-gray-300 rounded p-2">
-                <option value="">Selectionnez un employe</option>
+                <option value="">Sélectionnez un employé</option>
                 @foreach ($employees as $employee)
                     <option value="{{ $employee->id }}">{{ $employee->name }}</option>
                 @endforeach
@@ -24,7 +23,12 @@
             </div>
             <div class="mb-4">
                 <label for="department" class="block text-sm font-semibold mb-2">Département</label>
-                <input type="text" wire:model="department" id="department" class="w-full border border-gray-300 rounded p-2" placeholder="Département">
+                <select wire:model="department_id" id="department_id" class="w-full border border-gray-300 rounded p-2">
+                    <option value="">Sélectionnez un département</option> 
+                    @foreach($departments as $department)
+                        <option value="{{ $department->id }}">{{ $department->name }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="mb-4">
                 <label for="start_date" class="block text-sm font-semibold mb-2">Date de début</label>
@@ -47,31 +51,43 @@
         </div>
     </form>
 
-    <table class="min-w-full bg-white shadow-md rounded overflow-hidden">
-        <thead>
-            <tr class="border-b">
-                <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Employé</th>
-                <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Poste</th>
-                <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Début</th>
-                <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Fin</th>
-                <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($careerHistories as $history)
-                <tr class="border-b hover:bg-gray-100">
-                    <td class="px-6 py-3 text-sm">{{ $history->user->name }}</td>
-                    <td class="px-6 py-3 text-sm">{{ $history->position }}</td>
-                    <td class="px-6 py-3 text-sm">{{ $history->start_date }}</td>
-                    <td class="px-6 py-3 text-sm">{{ $history->end_date ?? 'Présent' }}</td>
-                    <td class="px-6 py-3 text-sm flex space-x-2">
-                        <button wire:click="edit({{ $history->id }})" class="bg-yellow-500 text-white py-1 px-4 rounded hover:bg-yellow-600 transition">Modifier</button>
-                        <button wire:click="delete({{ $history->id }})" class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600 transition">Supprimer</button>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+    <!-- Timeline des Historiques de Carrière -->
+    <div class="mt-6 space-y-6">
+        @foreach ($careerHistories as $history)
+            <div class="bg-white shadow-md rounded-lg p-6">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center">
+                        <span class="font-semibold text-lg">{{ substr($history->user->name, 0, 1) }}</span>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-xl font-semibold">{{ $history->user->name }}</h3>
+                        <p class="text-sm text-gray-500">Poste : {{ $history->position }}</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <div class="text-center">
+                        <div class="bg-blue-500 text-white text-sm px-3 py-1 rounded-full">{{ $history->start_date }}</div>
+                        <p class="text-sm mt-2">Date de début</p>
+                    </div>
+                    <div class="flex-1 h-1 bg-gray-300 mx-2"></div>
+                    <div class="text-center">
+                        <div class="bg-blue-300 text-white text-sm px-3 py-1 rounded-full">{{ $history->end_date ?? 'Présent' }}</div>
+                        <p class="text-sm mt-2">Date de fin</p>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <p class="text-sm text-gray-600"><strong>Description : </strong>{{ $history->description }}</p>
+                </div>
+
+                <div class="mt-4 flex space-x-4">
+                    <button wire:click="edit({{ $history->id }})" class="bg-yellow-500 text-white py-1 px-4 rounded hover:bg-yellow-600 transition">Modifier</button>
+                    <button wire:click="delete({{ $history->id }})" class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600 transition">Supprimer</button>
+                </div>
+            </div>
+        @endforeach
+    </div>
 
     <div class="mt-4">
         {{ $careerHistories->links() }}
