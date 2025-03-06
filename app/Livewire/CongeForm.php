@@ -56,9 +56,9 @@ class CongeForm extends Component
         $this->validate();
 
         $user = Auth::user();
-        $leaveBalance = $user->leaveBalance ?? LeaveBalance::create(['user_id' => $user->id]);
+        $leaveBalance = $user->leaveBalance ?? LeaveBalance::create(['employee_id' => $user->id]);
 
-        // Vérification du solde
+        // Vérifie du solde
         if ($this->type === 'Congé annuel' && $leaveBalance->annual_balance < $this->total_days) {
             session()->flash('error', 'Solde de congé annuel insuffisant. Vous avez ' . $leaveBalance->annual_balance . ' jours disponibles.');
             return;
@@ -69,7 +69,7 @@ class CongeForm extends Component
             return;
         }
 
-        // Règle des 7 jours pour les congés annuels
+        //  7 jours pour les conges annuels
         if ($this->type === 'Congé annuel') {
             $oneWeekFromNow = Carbon::now()->addDays(7);
             $requestStart = Carbon::parse($this->start_date);
@@ -98,7 +98,7 @@ class CongeForm extends Component
     {
         $user = Auth::user();
         $leaveBalance = $user->leaveBalance ?? new LeaveBalance(['annual_balance' => 0, 'recovery_balance' => 0]);
-        return view('livewire.conge.conge-form', [
+        return view('livewire.conge-form', [
             'annualBalance' => $leaveBalance->annual_balance,
             'recoveryBalance' => $leaveBalance->recovery_balance,
         ]);

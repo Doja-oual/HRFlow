@@ -54,7 +54,8 @@ class User extends Authenticatable
 
     public function leaveBalance()
     {
-        return $this->hasOne(LeaveBalance::class, 'user_id');
+        return $this->hasOne(LeaveBalance::class, 'employee_id', 'employee_id
+        ');
     }
 
     public function calculateAnnualLeave()

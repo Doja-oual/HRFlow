@@ -47,7 +47,7 @@
         </div>
 
         <div class="flex">
-            <x-nav-link :href="route('livewire.leave-request-form')" :active="request()->routeIs('leave-request-form')" class="text-white hover:text-gray-400">
+            <x-nav-link :href="route('livewire.conge-form')" :active="request()->routeIs('leave-request-form')" class="text-white hover:text-gray-400">
                 {{ __('Demande de Congé') }}
             </x-nav-link>
         </div>

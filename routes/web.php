@@ -30,7 +30,7 @@ Route::get('/dashboard', function () {
 Route::get('/departments', Departments::class)->name('departments');
 Route::get('/contracts', ContractComponent::class)->name('contracts');
 Route::get('/formation', FormationComponent::class)->name('trainings');
-Route::get('/addConge', CongeForm::class)->name('livewire.conge.conge-form');
+Route::get('/addConge', CongeForm::class)->name('livewire.conge-form');
 Route::get('/ListConge', LeaveRequestList::class)->name('livewire.leave-request-list');
 
 
