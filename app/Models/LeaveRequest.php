@@ -1,8 +1,10 @@
 <?php
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
 
 class LeaveRequest extends Model
 {
@@ -17,18 +19,20 @@ class LeaveRequest extends Model
         'approved_by',
     ];
 
-    public function employee()
+    protected $dates = ['start_date', 'end_date'];
+
+    public function user()
     {
-        return $this->belongsTo(Employee::class);
+        return $this->belongsTo(User::class, 'employee_id');
     }
 
     public function approver()
     {
-        return $this->belongsTo(Employee::class, 'approved_by');
+        return $this->belongsTo(User::class, 'approved_by');
     }
 
     public function calculateDaysRequested()
     {
-        return $this->start_date->diffInDays($this->end_date) + 1; 
+        return Carbon::parse($this->start_date)->diffInDays(Carbon::parse($this->end_date)) + 1;
     }
 }

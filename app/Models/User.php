@@ -46,6 +46,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'hire_date'
         ];
     }
 
@@ -65,4 +66,11 @@ public function careerHistories()
 {
     return $this->hasMany(CareerHistory::class);
 }
+
+    protected $dates = ['hire_date'];
+
+    public function leaveRequests()
+    {
+        return $this->hasMany(LeaveRequest::class, 'employee_id');
+    }
 }

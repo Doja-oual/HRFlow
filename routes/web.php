@@ -1,12 +1,16 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Livewire\LeaveRequestList;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\UserComponent;
 use App\Livewire\ContractComponent;
 use App\Livewire\Departments;
 use App\Livewire\FormationComponent;
 use App\Livewire\CareerHistoryComponent;
+use App\Livewire\LeaveRequestForm;
+
+
 
 // Route::middleware('role:admin')
 
@@ -26,6 +30,8 @@ Route::get('/dashboard', function () {
 Route::get('/departments', Departments::class)->name('departments');
 Route::get('/contracts', ContractComponent::class)->name('contracts');
 Route::get('/formation', FormationComponent::class)->name('trainings');
+Route::get('/addConge', LeaveRequestForm::class)->name('livewire.leave-request-form');
+Route::get('/ListConge', LeaveRequestList::class)->name('livewire.leave-request-list');
 
 
 
@@ -40,4 +46,4 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('/user',UserComponent::class)->name('user');
-// Route::get('/user/create',CreateDepartment::class);
+

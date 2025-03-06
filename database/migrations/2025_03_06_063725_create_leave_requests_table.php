@@ -11,10 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('recovery_days', function (Blueprint $table) {
-            $table->id();
+        Schema::create('leave_requests', function (Blueprint $table) {
+               $table->id();
             $table->foreignId('employee_id')->constrained()->onDelete('cascade');
-            $table->integer('days_available')->default(0);
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->integer('days_requested')->nullable();
+            $table->string('status')->default('pending');
+            $table->foreignId('approved_by')->nullable()->constrained('employees')->onDelete('set null');
             $table->timestamps();
         });
     }
@@ -24,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('recovery_days');
+        Schema::dropIfExists('leave_requests');
     }
 };

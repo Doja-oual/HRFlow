@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use App\Models\LeaveRequest;
 use Livewire\Component;
