@@ -4,25 +4,62 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
-                    </a>
-                </div>
+               
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                </div>
+                <div class="flex justify-between items-center h-16 px-4 bg-gray-800">
+    <!-- Logo -->
+    <div class="shrink-0 flex items-center">
+        <a href="{{ route('dashboard') }}">
+            <x-application-logo class="block h-9 w-auto fill-current text-white" />
+        </a>
+    </div>
 
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('departments')" :active="request()->routeIs('departments')">
-                        {{ __('Departments') }}
-                    </x-nav-link>
-                </div>
-            </div>
+    <!-- Navigation Links -->
+    <div class="flex space-x-8">
+        <div class="flex">
+            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-white hover:text-gray-400">
+                {{ __('Dashboard') }}
+            </x-nav-link>
+        </div>
+        <div class="flex">
+            <x-nav-link :href="route('user')" :active="request()->routeIs('departments')" class="text-white hover:text-gray-400">
+                {{ __('user') }}
+            </x-nav-link>
+        </div>
+
+        <div class="flex">
+            <x-nav-link :href="route('departments')" :active="request()->routeIs('departments')" class="text-white hover:text-gray-400">
+                {{ __('Departments') }}
+            </x-nav-link>
+        </div>
+
+        <div class="flex">
+            <x-nav-link :href="route('contracts')" :active="request()->routeIs('contracts')" class="text-white hover:text-gray-400">
+                {{ __('Contracts') }}
+            </x-nav-link>
+        </div>
+
+        <div class="flex">
+            <x-nav-link :href="route('trainings')" :active="request()->routeIs('trainings')" class="text-white hover:text-gray-400">
+                {{ __('Formation') }}
+            </x-nav-link>
+        </div>
+
+        <div class="flex">
+            <x-nav-link :href="route('livewire.leave-request-form')" :active="request()->routeIs('leave-request-form')" class="text-white hover:text-gray-400">
+                {{ __('Demande de Congé') }}
+            </x-nav-link>
+        </div>
+
+        <div class="flex">
+            <x-nav-link :href="route('livewire.leave-request-list')" :active="request()->routeIs('leave-request-list')" class="text-white hover:text-gray-400">
+                {{ __('Liste Congé') }}
+            </x-nav-link>
+        </div>
+    </div>
+</div>
+
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">

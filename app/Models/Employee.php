@@ -6,26 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model
 {
-    /**
-     * Calculer le solde des jours de conge en fonction de sold.
-     *
-     * @return float
-     */
-    public function calculateLeaveDays()
-    {
-        $hireDate = $this->hire_date;
-        $yearsWorked = Carbon::parse($hireDate)->diffInYears(Carbon::now()); 
+    public function calculateLeaveDays() {
+        $hireDate = $this->hire_date; 
+        $yearsWorked = Carbon::parse($hireDate)->diffInYears(Carbon::now());
 
         if ($yearsWorked >= 1) {
-            return 18 + ($yearsWorked - 1) * 0.5;
+            return 18 + ($yearsWorked - 1) * 0.5; 
         } else {
             $monthsWorked = Carbon::parse($hireDate)->diffInMonths(Carbon::now());
             return $monthsWorked * 1.5; 
         }
     }
-
-    public function leaveRequests()
-    {
-        return $this->hasMany(LeaveRequest::class);
-    }
+    // public function leaveRequests()
+    // {
+    //     return $this->hasMany(LeaveRequest::class);
+    // }
 }

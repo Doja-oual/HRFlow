@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -10,67 +10,67 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasRoles;
-     // The User model requires this trait
- 
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
     protected $fillable = [
         'name', 'email', 'password', 'role', 'employee_id', 'position',
         'department', 'hire_date', 'status', 'phone', 'address',
         'date_of_birth', 'gender', 'contract_type', 'profile_picture'
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'hire_date'
+            'hire_date' => 'date',
         ];
     }
 
     public function entreprise()
     {
-        return $this->belongsTo(entreprise::class);
+        return $this->belongsTo(Entreprise::class);
     }
-//     public function Formations()
-// {
-//     return $this->hasMany(Formation::class, 'employee_id');
-// }
 
-public function salaryPromotions(){
-    return $this->hasMany(SalaryPromotion::class);
-}
-public function careerHistories()
-{
-    return $this->hasMany(CareerHistory::class);
-}
+    public function salaryPromotions()
+    {
+        return $this->hasMany(SalaryPromotion::class);
+    }
 
-    protected $dates = ['hire_date'];
+    public function careerHistories()
+    {
+        return $this->hasMany(CareerHistory::class);
+    }
 
     public function leaveRequests()
     {
         return $this->hasMany(LeaveRequest::class, 'employee_id');
+    }
+
+    public function leaveBalance()
+    {
+        return $this->hasOne(LeaveBalance::class, 'user_id');
+    }
+
+    public function calculateAnnualLeave()
+    {
+        if (!$this->hire_date) {
+            return 0;
+        }
+
+        $hireDate = Carbon::parse($this->hire_date);
+        $yearsWorked = $hireDate->diffInYears(Carbon::now());
+
+        if ($yearsWorked < 1) {
+            $monthsWorked = $hireDate->diffInMonths(Carbon::now());
+            return $monthsWorked * 1.5; // 1,5 jour par mois
+        }
+
+        return 18 + ($yearsWorked * 0.5); // 18 jours + 0,5 par an
     }
 }

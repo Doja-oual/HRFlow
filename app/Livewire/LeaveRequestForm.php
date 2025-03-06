@@ -23,7 +23,6 @@ class LeaveRequestForm extends Component
     {
         if (Auth::check()) { $this->employee_name = Auth::user()->name;
              } else {
-                 
                   session()->flash('error', 'Vous devez être connecté pour faire une demande de congé.');
                  } }
 
