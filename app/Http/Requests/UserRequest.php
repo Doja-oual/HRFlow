@@ -34,7 +34,7 @@ class UserRequest extends FormRequest
             'date_of_birth' => 'required|date|before:today',
             'gender' => 'required|in:male,female,other',
             'contract_type' => 'required|in:permanent,temporary,contract',
-            'profile_picture' => 'nullable|image|max:2048' // 2MB max, nullable car optionnel
+            'profile_picture' => 'nullable|image|max:2048' 
         ];
     }
 

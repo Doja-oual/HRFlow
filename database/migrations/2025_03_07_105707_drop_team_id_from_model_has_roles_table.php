@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->decimal('salary', 10, 2)->nullable();
+        Schema::table('model_has_roles', function (Blueprint $table) {
+            $table->dropColumn('team_id');
+
         });
     }
 
@@ -21,8 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
+        Schema::table('model_has_roles', function (Blueprint $table) {
+            $table->bigInteger('team_id')->nullable()->default(null);
         });
     }
 };

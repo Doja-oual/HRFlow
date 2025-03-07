@@ -22,41 +22,51 @@
                 {{ __('Dashboard') }}
             </x-nav-link>
         </div>
+        @hasrole('admin')
         <div class="flex">
             <x-nav-link :href="route('user')" :active="request()->routeIs('departments')" class="text-white hover:text-gray-400">
                 {{ __('user') }}
             </x-nav-link>
         </div>
-
+        @endhasrole
+        @hasrole('admin')
         <div class="flex">
             <x-nav-link :href="route('departments')" :active="request()->routeIs('departments')" class="text-white hover:text-gray-400">
                 {{ __('Departments') }}
             </x-nav-link>
         </div>
-
+        @endhasrole
+        
+        @hasrole('admin|RH|manager')
         <div class="flex">
             <x-nav-link :href="route('contracts')" :active="request()->routeIs('contracts')" class="text-white hover:text-gray-400">
                 {{ __('Contracts') }}
             </x-nav-link>
         </div>
-
+        @endhasrole
+@hasrole('admin')
         <div class="flex">
             <x-nav-link :href="route('trainings')" :active="request()->routeIs('trainings')" class="text-white hover:text-gray-400">
                 {{ __('Formation') }}
             </x-nav-link>
         </div>
+        @endhasrole
+        @hasrole('employee')
 
         <div class="flex">
             <x-nav-link :href="route('livewire.conge-form')" :active="request()->routeIs('leave-request-form')" class="text-white hover:text-gray-400">
                 {{ __('Demande de Congé') }}
             </x-nav-link>
         </div>
-
+        @endhasrole
+        
+@hasrole('admin|RH|manager')
         <div class="flex">
             <x-nav-link :href="route('livewire.leave-request-list')" :active="request()->routeIs('leave-request-list')" class="text-white hover:text-gray-400">
                 {{ __('Liste Congé') }}
             </x-nav-link>
         </div>
+        @endhasrole
     </div>
 </div>
 

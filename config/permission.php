@@ -88,12 +88,9 @@ return [
 
         'model_morph_key' => 'model_id',
 
-        /*
-         * Change this if you want to use the teams feature and your related model's
-         * foreign key is other than `team_id`.
-         */
+       
 
-        'team_foreign_key' => 'team_id',
+        
     ],
 
     /*

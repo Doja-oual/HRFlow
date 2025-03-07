@@ -4,9 +4,11 @@ namespace App\Livewire;
 
 use App\Models\LeaveBalance;
 use App\Models\LeaveRequest;
+use App\Models\User;
 use Livewire\Component;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+
 
 
 class CongeForm extends Component
@@ -16,6 +18,7 @@ class CongeForm extends Component
     public $end_date;
     public $total_days = 0;
     public $reason;
+ 
 
     protected $rules = [
         'type' => 'required|in:Congé annuel,Récupération',
@@ -29,6 +32,7 @@ class CongeForm extends Component
         $this->start_date = Carbon::now()->addDays(7)->format('Y-m-d');
         $this->end_date = Carbon::now()->addDays(8)->format('Y-m-d');
         $this->calculateDays();
+    
     }
 
     public function updated($propertyName)
@@ -56,7 +60,8 @@ class CongeForm extends Component
         $this->validate();
 
         $user = Auth::user();
-        $leaveBalance = $user->leaveBalance ?? LeaveBalance::create(['employee_id' => $user->id]);
+        $leaveBalance = $user->getOrUpdateLeaveBalance();
+       
 
         // Vérifie du solde
         if ($this->type === 'Congé annuel' && $leaveBalance->annual_balance < $this->total_days) {
@@ -97,7 +102,7 @@ class CongeForm extends Component
     public function render()
     {
         $user = Auth::user();
-        $leaveBalance = $user->leaveBalance ?? new LeaveBalance(['annual_balance' => 0, 'recovery_balance' => 0]);
+        $leaveBalance = $user->getOrUpdateLeaveBalance();
         return view('livewire.conge-form', [
             'annualBalance' => $leaveBalance->annual_balance,
             'recoveryBalance' => $leaveBalance->recovery_balance,

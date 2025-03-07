@@ -1,5 +1,4 @@
 <div>
-   
     @if (session()->has('message'))
         <div class="bg-green-100 text-green-800 p-2 rounded-md">
             {{ session('message') }}
@@ -8,7 +7,6 @@
 
     <button wire:click="create" class="bg-blue-500 text-white px-4 py-2 rounded-md">Ajouter Utilisateur</button>
 
-   
     <input type="text" wire:model="searchTerm" placeholder="Rechercher..." class="border p-2 rounded-md w-full mt-2">
 
     <div class="overflow-x-auto mt-4">
@@ -17,7 +15,6 @@
                 <tr class="bg-gray-200">
                     <th class="p-2 border">Nom</th>
                     <th class="p-2 border">Email</th>
-                    <th class="p-2 border">Role</th>
                     <th class="p-2 border">Actions</th>
                 </tr>
             </thead>
@@ -26,7 +23,7 @@
                     <tr class="border">
                         <td class="p-2">{{ $user->name }}</td>
                         <td class="p-2">{{ $user->email }}</td>
-                        <td class="p-2">{{ $user->role }}</td>
+
                         <td class="p-2">
                             <button wire:click="edit({{ $user->id }})" class="bg-yellow-500 text-white px-2 py-1 rounded">Modifier</button>
                             <button wire:click="confirmDelete({{ $user->id }})" class="bg-red-500 text-white px-2 py-1 rounded">Supprimer</button>
@@ -53,8 +50,27 @@
                     <label class="block mt-2">Mot de passe:</label>
                     <input type="password" wire:model="password" class="w-full border p-2 rounded">
 
-                    <label class="block mt-2">Rôle:</label>
-                    <input type="text" wire:model="role" class="w-full border p-2 rounded">
+                    <div>
+    <label for="role_id">Rôle</label>
+    <select wire:model="role_id" id="role_id" class="form-control">
+        <option value="">Sélectionner un rôle</option>
+        @foreach($roles as $role)
+            <option value="{{ $role->id }}">{{ $role->name }}</option>
+        @endforeach
+    </select>
+    @error('role_id') <span class="text-danger">{{ $message }}</span> @enderror
+</div>
+
+<div>
+    <label for="department">Département</label>
+    <select wire:model="department" id="department" class="form-control">
+        <option value="">Sélectionner un département</option>
+        @foreach($departments as $department)
+            <option value="{{ $department->id }}">{{ $department->name }}</option>
+        @endforeach
+    </select>
+    @error('department') <span class="text-danger">{{ $message }}</span> @enderror
+</div>
 
                     <label class="block mt-2">Téléphone:</label>
                     <input type="text" wire:model="phone" class="w-full border p-2 rounded">
@@ -84,7 +100,6 @@
         </div>
     @endif
 
-    
     @if ($isDeleteModalOpen)
         <div class="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center">
             <div class="bg-white rounded-lg shadow-lg p-6">

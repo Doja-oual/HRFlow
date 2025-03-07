@@ -13,7 +13,7 @@ class User extends Authenticatable
     use HasFactory, Notifiable, HasRoles;
 
     protected $fillable = [
-        'name', 'email', 'password', 'role', 'employee_id', 'position',
+        'name', 'email', 'password', 'role_id', 'employee_id', 'position',
         'department', 'hire_date', 'status', 'phone', 'address',
         'date_of_birth', 'gender', 'contract_type', 'profile_picture'
     ];
@@ -54,9 +54,24 @@ class User extends Authenticatable
 
     public function leaveBalance()
     {
-        return $this->hasOne(LeaveBalance::class, 'employee_id', 'employee_id
-        ');
+        return $this->hasOne(LeaveBalance::class, 'employee_id', 'id');
     }
+    // calcule mitr ajour
+    public function getOrUpdateLeaveBalance()
+{
+    $leaveBalance = $this->leaveBalance ?? new LeaveBalance(['employee_id' => $this->id]);
+
+    // Calcul du solde annuel
+    $calculatedLeave = $this->calculateAnnualLeave();
+
+    if ($leaveBalance->annual_leave != $calculatedLeave) {
+        $leaveBalance->annual_leave = $calculatedLeave;
+        $leaveBalance->save(); 
+    }
+
+    return $leaveBalance;
+}
+
 
     public function calculateAnnualLeave()
     {
@@ -69,9 +84,19 @@ class User extends Authenticatable
 
         if ($yearsWorked < 1) {
             $monthsWorked = $hireDate->diffInMonths(Carbon::now());
-            return $monthsWorked * 1.5; // 1,5 jour par mois
+            return $monthsWorked * 1.5; 
         }
 
-        return 18 + ($yearsWorked * 0.5); // 18 jours + 0,5 par an
+        return 18 + ($yearsWorked * 0.5); 
     }
+    public function department()
+    {
+        return $this->belongsTo(Department::class,'department');
+    }
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'model_has_roles', 'model_id', 'role_id',)
+            ->where('model_type', User::class);
+    }
+
 }
