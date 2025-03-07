@@ -9,7 +9,9 @@
                 <th class="px-6 py-3 text-left">Date de fin</th>
                 <th class="px-6 py-3 text-left">Jours demandés</th>
                 <th class="px-6 py-3 text-left">Statut</th>
+                @hasrole('RH|manager')
                 <th class="px-6 py-3 text-left">Actions</th>
+                @endhasrole
             </tr>
         </thead>
         <tbody>
@@ -24,12 +26,14 @@
                             {{ ucfirst($leaveRequest->status) }}
                         </span>
                     </td>
+                    @hasrole('RH|manager')
                     <td class="px-6 py-4 space-x-2">
                         <button wire:click="updateStatus({{ $leaveRequest->id }})" class="px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600 focus:outline-none">
-                        Modifier le statut
+                       Accepte congé
   
                     </button>
                     </td>
+                    @endhasrole
                 </tr>
             @endforeach
         </tbody>

@@ -8,6 +8,7 @@ use App\Livewire\ContractComponent;
 use App\Livewire\Departments;
 use App\Livewire\FormationComponent;
 use App\Livewire\CareerHistoryComponent;
+use App\Livewire\CareerManagement;
 use App\Livewire\CongeForm;
 use App\Livewire\PermissionComponent;
 use App\Livewire\RoleComponent;
@@ -29,6 +30,9 @@ Route::middleware(['auth'])->group(function () {
 });
 Route::middleware(['auth'])->group(function () {
     Route::get('/PermissionManager',PermissionComponent ::class)->name('livewire.permission-component');
+});
+Route::middleware(['auth'])->group(function () {
+    Route::get('/CareerManagement',CareerManagement ::class)->name('livewire.career-management');
 });
 
 Route::get('/', function () {

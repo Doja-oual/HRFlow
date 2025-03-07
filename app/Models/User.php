@@ -42,11 +42,7 @@ class User extends Authenticatable
         return $this->hasMany(SalaryPromotion::class);
     }
 
-    public function careerHistories()
-    {
-        return $this->hasMany(CareerHistory::class);
-    }
-
+  
     public function leaveRequests()
     {
         return $this->hasMany(LeaveRequest::class, 'employee_id');
@@ -91,12 +87,19 @@ class User extends Authenticatable
     }
     public function department()
     {
-        return $this->belongsTo(Department::class,'department');
+        return $this->belongsTo(Department::class,'department_id');
+    }
+    public function careerRecords()
+    {
+        return $this->hasMany(CareerRecord::class);
     }
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'model_has_roles', 'model_id', 'role_id',)
             ->where('model_type', User::class);
     }
+
+  
+
 
 }
