@@ -18,7 +18,7 @@
         <p><strong>Téléphone:</strong> {{ $user->phone ?? 'Non défini' }}</p>
         <p><strong>Adresse:</strong> {{ $user->address ?? 'Non définie' }}</p>
         
-        <!-- Département -->
+     
         <p><strong>Département:</strong> {{ $user->department ? $user->department->name : 'Aucun département' }}</p>
     </div>
 
@@ -35,7 +35,6 @@
 
     <div class="mt-6">
         <h3 class="text-lg font-semibold">Détails du contrat</h3>
-        <!-- Vérifier si le contrat existe avant d'afficher -->
         <p><strong>Type:</strong> {{ $user->contract_type ?? 'Non défini' }}</p>
         <p><strong>Date de début:</strong> {{ $user->hire_date ?? 'Non définie' }}</p>
         <p><strong>Date de fin:</strong> {{ $user->contract_end_date ?? 'Non définie' }}</p>

@@ -10,16 +10,14 @@ class LeaveBalance extends Model
     use HasFactory;
 
     protected $fillable = [
-        'employee_id', 'annual_leave', 'recovery_leave'
-    ];
-
-    protected $casts = [
-        'annual_leave' => 'float',
-        'recovery_leave' => 'float',
+        'employee_id',
+        'annual_leave',
+        'recovery_balance',
+        'year'
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class,'employee_id', 'employee_id');
+        return $this->belongsTo(User::class, 'employee_id');
     }
 }
