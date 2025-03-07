@@ -2,9 +2,7 @@
     <div class="bg-white shadow-md rounded-lg p-6">
         <div class="flex justify-between items-center mb-6">
             <h2 class="text-2xl font-semibold text-gray-800">Liste des employés</h2>
-            <a href="" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
-                Ajouter un employé
-            </a>
+           
         </div>
         
         <!-- Filtres de recherche -->

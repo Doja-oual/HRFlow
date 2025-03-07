@@ -13,6 +13,8 @@ use App\Livewire\CongeForm;
 use App\Livewire\EmployeesList;
 use App\Livewire\PermissionComponent;
 use App\Livewire\RoleComponent;
+use App\Http\Middleware\CheckRole;
+
 
 
 
@@ -32,7 +34,7 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/PermissionManager',PermissionComponent ::class)->name('livewire.permission-component');
 });
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', CheckRole::class.':admin'])->group(function () {
     Route::get('/CareerManagement',CareerManagement ::class)->name('livewire.career-management');
 });
 
@@ -43,11 +45,17 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
     })->middleware(['auth', 'verified'])->name('dashboard');
-Route::get('/departments', Departments::class)->name('departments');
-Route::get('/contracts', ContractComponent::class)->name('contracts');
-Route::get('/formation', FormationComponent::class)->name('trainings');
-Route::get('/addConge', CongeForm::class)->name('livewire.conge-form');
-Route::get('/ListConge', LeaveRequestList::class)->name('livewire.leave-request-list');
+Route::middleware(['auth', CheckRole::class.':admin'])->group(function () {
+      Route::get('/departments', Departments::class)->name('departments');});
+Route::middleware(['auth', CheckRole::class.':admin'])->group(function () {
+      Route::get('/contracts', ContractComponent::class)->name('contracts');});
+Route::middleware(['auth', CheckRole::class.':admin'])->group(function () {
+   Route::get('/formation', FormationComponent::class)->name('trainings');});
+
+Route::middleware(['auth', CheckRole::class.':employee'])->group(function () {
+   Route::get('/addConge', CongeForm::class)->name('livewire.conge-form');});
+   Route::middleware(['auth', CheckRole::class.':RH'])->group(function () {
+Route::get('/ListConge', LeaveRequestList::class)->name('livewire.leave-request-list');});
 Route::get('/ListEmployee', EmployeesList::class)->name('livewire.employees-list');
 
 
