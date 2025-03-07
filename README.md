@@ -1,66 +1,138 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+LES ROUTER :
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
-## About Laravel
+Route::middleware(['auth'])->group(function () {
+    Route::get('/career-histories',CareerHistoryComponent ::class)->name('career-histories.index');
+});
+Route::middleware(['auth'])->group(function () {
+    Route::get('/RoleManager',RoleComponent ::class)->name('livewire.role-component');
+});
+Route::middleware(['auth'])->group(function () {
+    Route::get('/PermissionManager',PermissionComponent ::class)->name('livewire.permission-component');
+});
+Route::middleware(['auth', CheckRole::class.':admin'])->group(function () {
+    Route::get('/CareerManagement',CareerManagement ::class)->name('livewire.career-management');
+});
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Route::get('/', function () {
+    return view('welcome');
+});
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Route::get('/dashboard', function () {
+    return view('dashboard');
+    })->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth', CheckRole::class.':admin'])->group(function () {
+      Route::get('/departments', Departments::class)->name('departments');});
+Route::middleware(['auth', CheckRole::class.':admin'])->group(function () {
+      Route::get('/contracts', ContractComponent::class)->name('contracts');});
+Route::middleware(['auth', CheckRole::class.':admin'])->group(function () {
+   Route::get('/formation', FormationComponent::class)->name('trainings');});
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Route::middleware(['auth', CheckRole::class.':employee'])->group(function () {
+   Route::get('/addConge', CongeForm::class)->name('livewire.conge-form');});
+   Route::middleware(['auth', CheckRole::class.':RH'])->group(function () {
+Route::get('/ListConge', LeaveRequestList::class)->name('livewire.leave-request-list');});
+Route::get('/ListEmployee', EmployeesList::class)->name('livewire.employees-list');
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+require __DIR__.'/auth.php';
 
-### Premium Partners
+Route::get('/user',UserComponent::class)->name('user');
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+et seeder 
+ContractTypeSeeder:
+ DB::table('contract_types')->insert([
+                [
+                    'name' => 'CDI',
+                    'description' => 'Contrat à Durée Indéterminée',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+                [
+                    'name' => 'CDD',
+                    'description' => 'Contrat à Durée Déterminée',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+                [
+                    'name' => 'Stage',
+                    'description' => 'Convention de stage',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+                [
+                    'name' => 'Freelance',
+                    'description' => 'Mission en freelance',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+                [
+                    'name' => 'Alternance',
+                    'description' => 'Contrat en alternance',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+                [
+                    'name' => 'Intérim',
+                    'description' => 'Contrat de mission temporaire',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
 
-## Contributing
+  RolesAndPermissionsSeeder: $admin = Role::create(['name' => 'admin']);
+        $manager=Role::create(['name'=>'manager']);
+        $RH=Role::create(['name'=>'RH']);
+        $employe=Role::create(['name'=>'employe']);
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+        $permissions=[
+            'view employees',
+            'edit employees',
+            'delete employees',
+            'manage payroll',
+            'approve leaves',
+            'generate reports'
+        ];
+    RoleSeeder: public function run(): void
+    {
+        $role_admin = Role::create(['name' => 'admin']);
+         $permission_manage_users = Permission::create(['name' => 'manage users']);
+          $role_admin->givePermissionTo($permission_manage_users);
+          $user=User::find(1);
+          $user->assignRole($role_admin);
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
+    }
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+    UserSeeder:for ($i = 1; $i <= 10; $i++) {
+            User::create([
+                'name' => 'Employee ' . $i,
+                'email' => 'employee' . $i . '@example.com',
+                'password' => Hash::make('password123'), // Mot de passe hashé
+                'role' => 'employee',
+                'employee_id' => 'EMP00' . $i,
+                'position' => 'Developer',
+                'department' => 'IT',
+                'hire_date' => now()->subDays(rand(30, 365)), // Date aléatoire
+                'status' => 'active',
+                'phone' => '06000000' . $i,
+                'address' => '123 Employee Street ' . $i,
+                'date_of_birth' => now()->subYears(rand(20, 40))->format('Y-m-d'),
+                'gender' => rand(0, 1) ? 'male' : 'female',
+                'contract_type' => rand(0, 1) ? 'permanent' : 'contract',
+                'profile_picture' => 'profile_pictures/default.png',
 
-## License
+            //////    (ona modifie les user done database )    
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+  deja un probleme sur add user donc ona les compte qui auth :
+ dojaoualla@gmail.com (12345678)Admin;
+  fati@gmail.com(12345678)  employee | RH                        

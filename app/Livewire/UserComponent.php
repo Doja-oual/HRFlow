@@ -24,23 +24,23 @@ class UserComponent extends Component
     // Validation des champs
     public function rules()
     {
-        // return [
-        //     'name' => 'required|string|max:255',
-        //     'email' => 'required|email|unique:users,email,' . $this->userId,
-        //     'password' => 'nullable|min:6', // Le mot de passe est optionnel lors de la mise à jour
-        //     'role_id' => 'required|exists:roles,id',
-        //     'employee_id' => 'nullable|string',
-        //     'position' => 'nullable|string',
-        //     'department' => 'nullable|exists:departments,id', // Assurez-vous que l'ID du département existe
-        //     'hire_date' => 'nullable|date',
-        //     'status' => 'required|string',
-        //     'phone' => 'nullable|string',
-        //     'address' => 'nullable|string',
-        //     'date_of_birth' => 'nullable|date',
-        //     'gender' => 'nullable|string',
-        //     'contract_type' => 'nullable|string',
-        //     'profile_picture' => $this->profile_picture ? 'image|max:1024' : '', // Validation de l'image
-        // ];
+        return [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $this->userId,
+            'password' => 'nullable|min:6', // Le mot de passe est optionnel lors de la mise à jour
+            'role_id' => 'required|exists:roles,id',
+            'employee_id' => 'nullable|string',
+            'position' => 'nullable|string',
+            'department' => 'nullable|exists:departments,id', // Assurez-vous que l'ID du département existe
+            'hire_date' => 'nullable|date',
+            'status' => 'required|string',
+            'phone' => 'nullable|string',
+            'address' => 'nullable|string',
+            'date_of_birth' => 'nullable|date',
+            'gender' => 'nullable|string',
+            'contract_type' => 'nullable|string',
+            'profile_picture' => $this->profile_picture ? 'image|max:1024' : '', // Validation de l'image
+        ];
     }
 
     // Méthode render pour afficher les utilisateurs

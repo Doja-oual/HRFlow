@@ -28,18 +28,7 @@
                     @endforeach
                 </select>
             </div>
-            <div>
-                <label for="roleFilter" class="block text-sm font-medium text-gray-700 mb-1">Rôle</label>
-                <select 
-                    wire:model.live="roleFilter" 
-                    class="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
-                >
-                    <option value="">Tous les rôles</option>
-                    @foreach($roles as $id => $name)
-                        <option value="{{ $name }}">{{ $name }}</option>
-                    @endforeach
-                </select>
-            </div>
+           
         </div>
         
        
