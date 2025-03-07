@@ -29,6 +29,13 @@
             </x-nav-link>
         </div>
         @endhasrole
+        @hasrole('admin|RH|Manager')
+        <div class="flex">
+            <x-nav-link :href="route('livewire.employees-listf')" :active="request()->routeIs('livewire.employees-list')" class="text-white hover:text-gray-400">
+                {{ __('ListEmployee') }}
+            </x-nav-link>
+        </div>
+        @endhasrole
         @hasrole('admin')
         <div class="flex">
             <x-nav-link :href="route('departments')" :active="request()->routeIs('departments')" class="text-white hover:text-gray-400">

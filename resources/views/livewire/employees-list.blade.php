@@ -44,7 +44,7 @@
             </div>
         </div>
         
-        <!-- Table des employés -->
+       
         <div class="overflow-x-auto bg-white rounded-xl shadow-lg">
     <table class="min-w-full border-collapse">
         <thead>
@@ -81,11 +81,7 @@
                             >
                                 📄 Cursus
                             </button>
-                            <a href="" 
-                               class="flex items-center px-3 py-1.5 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition duration-200 text-xs shadow-md"
-                            >
-                                ✏️ Modifier
-                            </a>
+                           
                         </div>
                     </td>
                 </tr>
@@ -124,7 +120,7 @@
                         </button>
                     </div>
                     
-                    <!-- Informations de l'employé -->
+                   
                     <div class="flex items-center mb-8">
                         <div class="flex-shrink-0 h-16 w-16">
                             @if($selectedEmployee->profile_picture)
@@ -142,12 +138,12 @@
                         </div>
                     </div>
                     
-                    <!-- Timeline du cursus -->
+                   
                     <div class="mb-6">
                         <div class="relative">
                             <div class="absolute left-4 top-0 h-full w-0.5 bg-blue-500"></div>
                             
-                            <!-- Timeline items -->
+                           
                             @php
                                 $timelineItems = collect();
                                 
@@ -317,7 +313,7 @@
                         </div>
                     </div>
                     
-                    <!-- Boutons d'action -->
+                  
                     <div class="flex justify-end space-x-3">
                         <button 
                             wire:click="closeCursusModal" 
