@@ -88,16 +88,16 @@ class UserComponent extends Component
 
     public function store()
     {
-        // Validate all input fields
+        
         $this->validate();
     
-        // Validate role
+        
         if (!Role::find($this->role_id)) {
             session()->flash('error', 'Le rôle sélectionné n\'existe pas.');
             return;
         }
     
-        // Validation des données utilisateur
+        
         $validatedData = [
             'name' => $this->name,
             'email' => $this->email,
@@ -113,35 +113,34 @@ class UserComponent extends Component
             'contract_type' => $this->contract_type,
         ];
     
-        // Handle password update if provided
+
         if ($this->password) {
             $validatedData['password'] = Hash::make($this->password);
         }
     
-        // Handle profile picture upload if provided
         if ($this->profile_picture) {
             $validatedData['profile_picture'] = $this->profile_picture->store('profile-pictures', 'public');
         }
     
-        // Création ou mise à jour de l'utilisateur
+
         $user = User::updateOrCreate(
             ['id' => $this->userId],
             $validatedData
         );
     
-        // Assign the role to the user
+  
         if ($role = Role::find($this->role_id)) {
-            // Sync the role to the user and specify the model_type
+
             $user->roles()->syncWithoutDetaching([$role->id => ['model_type' => User::class]]);
         } else {
             session()->flash('error', 'Le rôle spécifié est invalide.');
             return;
         }
     
-        // Flash message for success
+      
         session()->flash('message', $this->userId ? 'Utilisateur mis à jour!' : 'Utilisateur créé!');
     
-        // Close the modal
+
         $this->closeModal();
     }
     

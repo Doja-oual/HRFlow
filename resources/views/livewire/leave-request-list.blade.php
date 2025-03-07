@@ -25,15 +25,10 @@
                         </span>
                     </td>
                     <td class="px-6 py-4 space-x-2">
-                        <button class="btn btn-info px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none">
-                            Voir
-                        </button>
-                        <button class="btn btn-danger px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none">
-                            Supprimer
-                        </button>
                         <button wire:click="updateStatus({{ $leaveRequest->id }})" class="px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600 focus:outline-none">
-                            Modifier le statut
-                        </button>
+                        Modifier le statut
+  
+                    </button>
                     </td>
                 </tr>
             @endforeach

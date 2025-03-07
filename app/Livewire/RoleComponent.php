@@ -83,10 +83,10 @@ class RoleComponent extends Component
         $role = Role::findOrFail($this->roleId);
         $role->update(['name' => $this->name]);
     
-        // 🔥 Correction : Récupérer les noms des permissions
+    
         $permissionNames = Permission::whereIn('id', $this->permissions)->pluck('name')->toArray();
     
-        // 🔥 Mise à jour des permissions
+        
         $role->syncPermissions($permissionNames);
     
         session()->flash('message', 'Rôle mis à jour avec succès !');
