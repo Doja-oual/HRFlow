@@ -10,6 +10,7 @@ use App\Livewire\FormationComponent;
 use App\Livewire\CareerHistoryComponent;
 use App\Livewire\CareerManagement;
 use App\Livewire\CongeForm;
+use App\Livewire\EmployeesList;
 use App\Livewire\PermissionComponent;
 use App\Livewire\RoleComponent;
 
@@ -47,6 +48,7 @@ Route::get('/contracts', ContractComponent::class)->name('contracts');
 Route::get('/formation', FormationComponent::class)->name('trainings');
 Route::get('/addConge', CongeForm::class)->name('livewire.conge-form');
 Route::get('/ListConge', LeaveRequestList::class)->name('livewire.leave-request-list');
+Route::get('/ListEmployee', EmployeesList::class)->name('livewire.employees-list');
 
 
 
