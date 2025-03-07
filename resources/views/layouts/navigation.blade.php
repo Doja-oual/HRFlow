@@ -67,6 +67,21 @@
             </x-nav-link>
         </div>
         @endhasrole
+        @hasrole('admin|RH|manager')
+        <div class="flex">
+            <x-nav-link :href="route('livewire.role-component')" :active="request()->routeIs('leave-request-list')" class="text-white hover:text-gray-400">
+                {{ __('RoleManager') }}
+            </x-nav-link>
+        </div>
+        @endhasrole
+        @hasrole('admin|RH|manager')
+        <div class="flex">
+            <x-nav-link :href="route('livewire.permission-component')" :active="request()->routeIs('leave-request-list')" class="text-white hover:text-gray-400">
+                {{ __('PermissionManager') }}
+            </x-nav-link>
+        </div>
+        @endhasrole
+    </div>
     </div>
 </div>
 
